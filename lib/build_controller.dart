@@ -22,14 +22,20 @@ class BuildController extends GetxController {
   @override
   Future<void> onReady() async {
     super.onReady();
-    await runShell('flutter --version');
+    await runShell('${flutterDir}flutter --version');
   }
 
   Future<void> runShell(String script) async {
-    showLoading.value = true;
-    var shellResult = await shell.run(script);
-    addLog(shellResult.outText);
-    showLoading.value = false;
+    try {
+      showLoading.value = true;
+      var shellResult = await shell.run(script);
+      addLog(shellResult.outText);
+    } catch (e) {
+      addLog('！！執行錯誤！！');
+      addLog(e.toString());
+    } finally {
+      showLoading.value = false;
+    }
   }
 
   addLog(String str) {
