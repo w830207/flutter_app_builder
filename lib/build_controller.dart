@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:process_run/shell.dart';
 
@@ -5,11 +6,18 @@ class BuildController extends GetxController {
   late Shell shell;
   RxString showingLog = "".obs;
   RxBool showLoading = false.obs;
+  RxBool wantUpload = false.obs;
   RxString loadingActionName = "flutter --version".obs;
   String env = '';
   String appDir = '';
   String flutterDir = '';
   ShellLinesController shellLinesController = ShellLinesController();
+
+  Map apiConfig = {
+    'UAT': {'ip': '172.31.32.91', 'pw': 'MCv@!0Xd86\$g', 'dir': ''},
+    'BETA': {'ip': '18.167.147.38', 'pw': 'OvO@0!0Pk1*9', 'dir': '_beta'},
+    'PROD': {'ip': '192.168.20.41', 'pw': 'OvO@0!0Pk1*9', 'dir': ''},
+  };
 
   @override
   void onInit() {
@@ -55,7 +63,8 @@ class BuildController extends GetxController {
     }
   }
 
-  addLog(String str) {
+  addLog(String? str) {
+    if (str == null) return;
     showingLog.value += str;
     showingLog.value += '\n';
   }
@@ -133,5 +142,27 @@ class BuildController extends GetxController {
   openFinderIpa() async {
     showingLog.value = "";
     await runShell("open $appDir/build/ios/iphoneos/$env");
+  }
+
+  uploadApk() async {
+    showingLog.value = "";
+    await runShell("open -a Terminal");
+    addLog("已開啟終端機，請使用上傳命令");
+    wantUpload.value = true;
+
+    // await runShell(
+    //     "scp -P 55160 $appDir/build/app/outputs/apk/$env/vietvip_pro.apk arduser@${apiConfig[env]['ip']}:/home/vivi_promote${apiConfig[env]['dir']}/storage/app/apk");
+  }
+
+  copyCommend() async {
+    await Clipboard.setData(ClipboardData(
+        text:
+            "scp -P 55160 $appDir/build/app/outputs/apk/$env/*.apk arduser@${apiConfig[env]['ip']}:/home/vivi_promote${apiConfig[env]['dir']}/storage/app/apk"));
+    addLog("已複製上傳命令");
+  }
+
+  copyPassword() async {
+    await Clipboard.setData(ClipboardData(text: apiConfig[env]['ip']));
+    addLog("已複製密碼");
   }
 }

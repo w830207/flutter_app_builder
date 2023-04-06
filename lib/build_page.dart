@@ -52,6 +52,7 @@ class BuildPage extends StatelessWidget {
                   onPressed: controller.buildIpa,
                   child: const Text("打包Ios ipa"),
                 ),
+                const Divider(),
                 TextButton(
                   onPressed: controller.openFinderApk,
                   child: const Text("打開Android apk目錄"),
@@ -60,6 +61,31 @@ class BuildPage extends StatelessWidget {
                   onPressed: controller.openFinderIpa,
                   child: const Text("打開IOS ipa目錄"),
                 ),
+                const Divider(),
+                TextButton(
+                  onPressed: controller.uploadApk,
+                  child: const Text("手動上傳apk"),
+                ),
+                Obx(() {
+                  return AnimatedCrossFade(
+                      firstChild: Column(
+                        children: [
+                          TextButton(
+                            onPressed: controller.copyCommend,
+                            child: const Text("複製上傳命令"),
+                          ),
+                          TextButton(
+                            onPressed: controller.copyPassword,
+                            child: const Text("複製密碼"),
+                          ),
+                        ],
+                      ),
+                      secondChild: const SizedBox(),
+                      crossFadeState: controller.wantUpload.value
+                          ? CrossFadeState.showFirst
+                          : CrossFadeState.showSecond,
+                      duration: const Duration(milliseconds: 300));
+                }),
               ],
             ),
           ],

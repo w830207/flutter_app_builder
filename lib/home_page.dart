@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("初始選擇"),
+        title: const Text("vivi專用"),
       ),
       body: Center(
         child: Column(
@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: OutlinedButton(
-                child: const Text('4。去打包PROD'),
+                child: const Text('3。去打包PROD'),
                 onPressed: () {
                   Get.to(() => BuildPage(), arguments: {
                     'env': 'PROD',
