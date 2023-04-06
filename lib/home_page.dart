@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
                 child: const Text('3。去打包UAT'),
                 onPressed: () {
                   Get.to(() => BuildPage(), arguments: {
-                    'env': 'DEV',
+                    'env': 'UAT',
                     'appDir': myController.text,
                     'flutterDir': flutterDir,
                   });

@@ -15,12 +15,14 @@ class BuildPage extends StatelessWidget {
       ),
       body: Center(
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Container(
               width: MediaQuery.of(context).size.width * 0.5,
               height: MediaQuery.of(context).size.height * 0.8,
               color: Colors.white,
               child: SingleChildScrollView(
+                reverse: true,
                 child: Obx(() {
                   return Column(
                     children: [
@@ -38,6 +40,27 @@ class BuildPage extends StatelessWidget {
                   );
                 }),
               ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: controller.buildApk,
+                  child: const Text("打包Android apk"),
+                ),
+                TextButton(
+                  onPressed: controller.buildIpa,
+                  child: const Text("打包Ios ipa"),
+                ),
+                TextButton(
+                  onPressed: controller.openFinderApk,
+                  child: const Text("打開Android apk目錄"),
+                ),
+                TextButton(
+                  onPressed: controller.openFinderIpa,
+                  child: const Text("打開IOS ipa目錄"),
+                ),
+              ],
             ),
           ],
         ),
