@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
   final TextEditingController myController = TextEditingController(
-      text: "/Users/wangchenbo/StudioProjects/lilian_yabo");
+      text: "/Users/wangchenbo/StudioProjects/lilian_vietvip_pro");
 
   @override
   Widget build(BuildContext context) {
